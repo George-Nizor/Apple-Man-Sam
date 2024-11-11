@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://t3e5q53kq60o"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/enemy_hit_particle.gd" id="1_ou5a8"]
+
+[sub_resource type="Curve" id="Curve_hkwvw"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.509259, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Enemy_Hit" type="CPUParticles2D"]
+top_level = true
+amount = 40
+lifetime = 1.5
+speed_scale = 2.0
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector2(0, 0)
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+scale_amount_min = 1.2
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_hkwvw")
+color = Color(1.15514e-06, 0.686569, 0.00883373, 1)
+script = ExtResource("1_ou5a8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="finished" from="." to="." method="_on_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

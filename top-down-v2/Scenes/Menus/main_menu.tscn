@@ -1,0 +1,225 @@
+[gd_scene load_steps=19 format=3 uid="uid://ebwd5qg5q26"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/main_menu.gd" id="1_4c8iu"]
+[ext_resource type="FontFile" uid="uid://bo05ovc6ssadm" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="2_hhyo1"]
+[ext_resource type="Texture2D" uid="uid://bqkppm2kqcr3v" path="res://Assets/Sprites/test.png" id="3_u1otl"]
+[ext_resource type="Texture2D" uid="uid://c0n0r4l6lalog" path="res://Assets/Sprites/Weapons.png" id="4_kwy8y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ae6a"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlf3g"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qujvf"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csoe1"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6easo"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smgnj"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7nvr"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2jsl"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k6wf"]
+atlas = ExtResource("3_u1otl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ll3f8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ae6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlf3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qujvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csoe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6easo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smgnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7nvr")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2jsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k6wf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvdtl"]
+atlas = ExtResource("4_kwy8y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwaw7"]
+atlas = ExtResource("4_kwy8y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxthe"]
+atlas = ExtResource("4_kwy8y")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ik3a7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvdtl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwaw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxthe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwaw7")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 20.0
+}]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 433.0
+offset_right = -3.0
+offset_bottom = 433.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4c8iu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = -237.0
+offset_right = 1150.0
+offset_bottom = 412.0
+color = Color(0.25, 0, 0.25, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1020.0
+offset_top = -675.0
+offset_right = 2559.0
+offset_bottom = 1286.0
+color = Color(0.34, 0, 0.34, 1)
+
+[node name="High_Score" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 46.0
+offset_top = 3.0
+offset_right = 1199.0
+offset_bottom = 355.0
+theme_override_fonts/normal_font = ExtResource("2_hhyo1")
+theme_override_font_sizes/normal_font_size = 50
+text = "High Score: 
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 52.0
+offset_right = 1154.0
+offset_bottom = 404.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(0, 1, 0.2, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hhyo1")
+theme_override_font_sizes/font_size = 61
+text = "Play"
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hhyo1")
+theme_override_font_sizes/font_size = 61
+text = "Options"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 0.08, 0.08, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hhyo1")
+theme_override_font_sizes/font_size = 61
+text = "Exit"
+
+[node name="Camera2D" type="Camera2D" parent="MarginContainer"]
+position = Vector2(576, 48)
+zoom = Vector2(2, 2)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = -99.0
+offset_right = 1139.0
+offset_bottom = 2.0
+theme_override_fonts/normal_font = ExtResource("2_hhyo1")
+theme_override_font_sizes/normal_font_size = 100
+text = "APPLE MAN SAM"
+fit_content = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(567, -173)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_ll3f8")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+position = Vector2(18.2, 2.4)
+sprite_frames = SubResource("SpriteFrames_ik3a7")
+animation = &"fire"
+offset = Vector2(4, -4)
+
+[node name="gun_end" type="Marker2D" parent="AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(12, -5)
+gizmo_extents = 0.0
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

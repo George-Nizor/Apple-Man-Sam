@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bygnuq8o7d0mf"]
+
+[ext_resource type="Script" path="res://Scripts/Globals/ui.gd" id="1_ya4ek"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ya4ek")
+
+[node name="Score" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="score_label" type="RichTextLabel" parent="Score"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 40.0
+text = "Score: Fuck off"

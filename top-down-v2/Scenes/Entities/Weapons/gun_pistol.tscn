@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7x172mh2as7m"]
+
+[ext_resource type="Texture2D" uid="uid://c0n0r4l6lalog" path="res://Assets/Sprites/Weapons.png" id="1_5wtjv"]
+[ext_resource type="Script" path="res://Scenes/Entities/Weapons/gun_pistol.gd" id="1_few34"]
+[ext_resource type="AudioStream" uid="uid://timq8351mto8" path="res://Assets/Sounds/Effects/explosion.wav" id="3_u8w8u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvdtl"]
+atlas = ExtResource("1_5wtjv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwaw7"]
+atlas = ExtResource("1_5wtjv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxthe"]
+atlas = ExtResource("1_5wtjv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1xpq"]
+atlas = ExtResource("1_5wtjv")
+region = Rect2(96, 0, 32, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1pe13"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvdtl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwaw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxthe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwaw7")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1xpq")
+}],
+"loop": true,
+"name": &"fire_2",
+"speed": 5.0
+}]
+
+[node name="gun_pistol" type="Node2D" node_paths=PackedStringArray("gun_end")]
+script = ExtResource("1_few34")
+gun_end = NodePath("AnimatedSprite2D/gun_end")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1pe13")
+animation = &"fire_2"
+autoplay = "default"
+offset = Vector2(4, -4)
+
+[node name="gun_end" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(12, -5)
+gizmo_extents = 0.0
+
+[node name="gun_end2" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(13, -9)
+gizmo_extents = 0.0
+
+[node name="shoot_cooldown" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="fire_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_u8w8u")
+
+[node name="fire_sound2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_u8w8u")
+volume_db = 2.516
+pitch_scale = 0.45
+
+[connection signal="timeout" from="shoot_cooldown" to="." method="_on_shoot_cooldown_timeout"]

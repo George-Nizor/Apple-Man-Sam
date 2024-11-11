@@ -1,0 +1,147 @@
+[gd_scene load_steps=23 format=3 uid="uid://cn3b83r2ltbda"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_2cgkm"]
+[ext_resource type="Texture2D" uid="uid://bqkppm2kqcr3v" path="res://Assets/Sprites/test.png" id="2_awnru"]
+[ext_resource type="PackedScene" uid="uid://b7x172mh2as7m" path="res://Scenes/Entities/Weapons/gun_pistol.tscn" id="3_uaac2"]
+[ext_resource type="Script" path="res://Scenes/Components/movement_component.gd" id="4_daps4"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="5_k1e0c"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="6_5ak71"]
+[ext_resource type="AudioStream" uid="uid://ceut3oshd2d1m" path="res://Assets/Sounds/Effects/Hit_1.wav" id="7_y0eh6"]
+[ext_resource type="AudioStream" uid="uid://bgpqsj85iwmah" path="res://Assets/Sounds/Effects/Hit_2.wav" id="8_3l1bt"]
+[ext_resource type="AudioStream" uid="uid://dndkgqpm3jj3t" path="res://Assets/Sounds/Effects/Hit_3.wav" id="9_s7sor"]
+[ext_resource type="AudioStream" uid="uid://c4kj74j1j0kty" path="res://Assets/Sounds/Effects/speed boost sound.wav" id="10_5nrqs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ae6a"]
+atlas = ExtResource("2_awnru")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlf3g"]
+atlas = ExtResource("2_awnru")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qujvf"]
+atlas = ExtResource("2_awnru")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csoe1"]
+atlas = ExtResource("2_awnru")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6easo"]
+atlas = ExtResource("2_awnru")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smgnj"]
+atlas = ExtResource("2_awnru")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7nvr"]
+atlas = ExtResource("2_awnru")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2jsl"]
+atlas = ExtResource("2_awnru")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k6wf"]
+atlas = ExtResource("2_awnru")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b58nv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ae6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlf3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qujvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csoe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6easo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smgnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7nvr")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2jsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k6wf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75ep2"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7i4w"]
+radius = 18.0278
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health")]
+y_sort_enabled = true
+position = Vector2(0, -16)
+script = ExtResource("1_2cgkm")
+health = NodePath("Health")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_b58nv")
+animation = &"Run"
+autoplay = "Run"
+
+[node name="gun_pistol" parent="AnimatedSprite2D" instance=ExtResource("3_uaac2")]
+rotation = -0.00313366
+
+[node name="Player_Collision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_75ep2")
+
+[node name="Hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(1, -2)
+script = ExtResource("6_5ak71")
+health_component = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_x7i4w")
+
+[node name="Health" type="Node2D" parent="."]
+position = Vector2(0, 16)
+script = ExtResource("5_k1e0c")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4_daps4")
+body = NodePath("..")
+
+[node name="Hit_Sounds" type="Node" parent="."]
+
+[node name="Hit_1" type="AudioStreamPlayer" parent="Hit_Sounds"]
+stream = ExtResource("7_y0eh6")
+volume_db = -37.18
+
+[node name="Hit_2" type="AudioStreamPlayer" parent="Hit_Sounds"]
+stream = ExtResource("8_3l1bt")
+volume_db = -36.38
+
+[node name="Death_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_s7sor")
+volume_db = -35.58
+
+[node name="Speed_Boost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_5nrqs")
+volume_db = -25.0

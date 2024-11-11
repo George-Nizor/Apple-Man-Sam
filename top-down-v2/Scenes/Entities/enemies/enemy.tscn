@@ -1,0 +1,133 @@
+[gd_scene load_steps=16 format=3 uid="uid://dtewtuqtu8jrn"]
+
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="1_q5tg6"]
+[ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy.gd" id="1_rokff"]
+[ext_resource type="Texture2D" uid="uid://by4kgy217o42h" path="res://Assets/Sprites/brocco.png" id="1_vps2r"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="2_7gp3u"]
+[ext_resource type="Script" path="res://Scenes/Components/movement_component.gd" id="4_1otu2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qg2bm"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60ylw"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhnq6"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4djc"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkgqg"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcrvm"]
+atlas = ExtResource("1_vps2r")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ee5b7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qg2bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60ylw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhnq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4djc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkgqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcrvm")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_adpqs"]
+radius = 17.0
+height = 34.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ra7l"]
+size = Vector2(30, 31)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0himi"]
+radius = 21.0238
+
+[node name="Enemy" type="CharacterBody2D"]
+y_sort_enabled = true
+position = Vector2(2, -16)
+collision_layer = 2
+collision_mask = 7
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_rokff")
+attack_damage = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ee5b7")
+animation = &"run"
+autoplay = "idle"
+frame = 3
+frame_progress = 0.663996
+
+[node name="enemy_health" type="Node2D" parent="."]
+script = ExtResource("2_7gp3u")
+
+[node name="enemy_movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4_1otu2")
+body = NodePath("..")
+moveSpeed = 50.0
+
+[node name="Hitboxcomponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
+collision_layer = 2
+script = ExtResource("1_q5tg6")
+health_component = NodePath("../enemy_health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxcomponent"]
+shape = SubResource("CapsuleShape2D_adpqs")
+
+[node name="Body_Collision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_1ra7l")
+
+[node name="damage_modulate" type="CanvasModulate" parent="."]
+
+[node name="attack_cd" type="Timer" parent="."]
+
+[node name="attack_box" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_box"]
+shape = SubResource("CircleShape2D_0himi")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+
+[node name="Path_Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
+[connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]
+[connection signal="timeout" from="Path_Timer" to="." method="_on_path_timer_timeout"]
