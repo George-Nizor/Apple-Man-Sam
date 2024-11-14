@@ -1,0 +1,108 @@
+[gd_scene load_steps=14 format=3 uid="uid://suv7ientnyjb"]
+
+[ext_resource type="Script" path="res://enemy_2.gd" id="1_qgcl3"]
+[ext_resource type="Texture2D" uid="uid://d4ay3tehch2yf" path="res://Assets/Sprites/Carrot Man Barry.png" id="2_d1u3y"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_d7j75"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_hf3xm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ashuy"]
+atlas = ExtResource("2_d1u3y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4h7g"]
+atlas = ExtResource("2_d1u3y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3qcr"]
+atlas = ExtResource("2_d1u3y")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0xhs"]
+atlas = ExtResource("2_d1u3y")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjoho"]
+atlas = ExtResource("2_d1u3y")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a81fc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ashuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4h7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3qcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0xhs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjoho")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eykmw"]
+radius = 8.0
+height = 31.3333
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06wpc"]
+radius = 13.0
+height = 36.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bruql"]
+size = Vector2(24.6667, 31.3333)
+
+[node name="Enemy_2" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_qgcl3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a81fc")
+autoplay = "default"
+frame_progress = 0.192582
+
+[node name="enemy_2_health" type="Node2D" parent="."]
+script = ExtResource("3_d7j75")
+
+[node name="enemy_2_hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+script = ExtResource("4_hf3xm")
+health_component = NodePath("../enemy_2_health")
+
+[node name="enemy_2_hitbox_shape" type="CollisionShape2D" parent="enemy_2_hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_eykmw")
+
+[node name="enemy_2_collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.666667, -0.666667)
+shape = SubResource("CapsuleShape2D_06wpc")
+
+[node name="dash_timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="dash_duration_timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="attack_box" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_box"]
+position = Vector2(0.333333, 1)
+shape = SubResource("RectangleShape2D_bruql")
+
+[node name="attack_cd" type="Timer" parent="."]
+
+[connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="dash_duration_timer" to="." method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]
+[connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]

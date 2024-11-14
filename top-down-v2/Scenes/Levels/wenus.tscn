@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://bo6qwv85ukygc"]
+[gd_scene load_steps=5 format=4 uid="uid://bo6qwv85ukygc"]
 
 [ext_resource type="PackedScene" uid="uid://cn3b83r2ltbda" path="res://Scenes/Entities/Player/player.tscn" id="1_cvj6t"]
 [ext_resource type="TileSet" uid="uid://dlhws7gyhdx5j" path="res://Assets/Tilesets/main_tileset.tres" id="1_uik73"]
 [ext_resource type="PackedScene" uid="uid://dtewtuqtu8jrn" path="res://Scenes/Entities/enemies/enemy.tscn" id="3_6slv2"]
+[ext_resource type="PackedScene" uid="uid://suv7ientnyjb" path="res://Scenes/Entities/enemy_2.tscn" id="4_g6xyb"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -21,3 +22,6 @@ tile_set = ExtResource("1_uik73")
 
 [node name="Enemy" parent="." instance=ExtResource("3_6slv2")]
 position = Vector2(292, -16)
+
+[node name="Enemy_2" parent="." instance=ExtResource("4_g6xyb")]
+position = Vector2(314, 45)
