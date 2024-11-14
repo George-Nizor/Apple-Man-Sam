@@ -35,3 +35,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_audio_stream_player_2d_finished() -> void:
 	$AudioStreamPlayer2D.play()
+
+
+func _on_available_timer_timeout() -> void:
+	queue_free()
