@@ -12,8 +12,7 @@ var dash_duration = 0.3  # Duration of each dash in seconds
 @export var attack_damage = 30
 
 func _ready() -> void:
-	
-	dash_timer.start(2.0)  # Dash every 2 seconds
+	dash_timer.start() 
 
 func _physics_process(delta: float) -> void:
 	if dashing:
@@ -47,9 +46,6 @@ func stop_dash():
 func _on_dash_timer_timeout() -> void:
 	dash_toward_player()
 
-func Enemy():
-	pass
-
 
 func _on_attack_box_area_entered(area: Area2D) -> void:
 	if area is Hitboxcomponent and can_attack == true:
@@ -67,3 +63,8 @@ func _on_attack_box_area_entered(area: Area2D) -> void:
 
 func _on_attack_cd_timeout() -> void:
 	can_attack = true
+	
+func Enemy():
+	pass
+func Enemy2():
+	pass

@@ -2,12 +2,23 @@ extends Node
 
 @onready var spawners : Array
 @onready var enemy = preload("res://Scenes/Entities/enemies/enemy.tscn")
+@onready var enemy2 = preload("res://Scenes/Entities/enemy_2.tscn")
 @onready var can_spawn: bool = true
 @onready var spawn_timer: Timer = $SpawnTimer
+var broc_counter: int = 0
 
 func _ready() -> void:
 	spawners = get_all_children(self)
 	pass
+	
+func select_enemy():
+	if broc_counter > 3:
+		broc_counter = 0
+		return enemy2
+	else:
+		broc_counter += 1
+		return enemy
+		
 
 func get_all_children(node: Node):
 	var _spawners: Array
@@ -18,7 +29,7 @@ func get_all_children(node: Node):
 
 func spawn_enemy(spawner_list):
 	var selected_spawner: Marker2D
-	var enemy = enemy.instantiate()
+	var enemy = select_enemy().instantiate()
 	selected_spawner = spawner_list[randi() % spawner_list.size()]
 	enemy.global_position = selected_spawner.global_position
 	get_parent().add_child(enemy)

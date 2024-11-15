@@ -20,6 +20,8 @@ func damage(attack: Attack):
 		update_health.emit()
 		# took_damage_2.emit(3) # in case of emergency
 	if health <= 0 and get_parent().has_method('Enemy'):
+		if get_parent().has_method('Enemy2'):
+			GlobalStuff.SCORE += 2 # if enemy is a carrot man, add 2 to the score, so the total becomes 3 points per kill
 		GlobalStuff.SCORE += 1
 		# Instantiate the particle effect
 		var hit_effect_instance = hit_effect.instantiate()

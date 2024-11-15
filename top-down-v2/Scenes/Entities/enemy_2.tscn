@@ -72,6 +72,7 @@ frame_progress = 0.192582
 
 [node name="enemy_2_health" type="Node2D" parent="."]
 script = ExtResource("3_d7j75")
+max_health = 200
 
 [node name="enemy_2_hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 2
@@ -88,7 +89,6 @@ position = Vector2(0.666667, -0.666667)
 shape = SubResource("CapsuleShape2D_06wpc")
 
 [node name="dash_timer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="dash_duration_timer" type="Timer" parent="."]
 wait_time = 0.5
