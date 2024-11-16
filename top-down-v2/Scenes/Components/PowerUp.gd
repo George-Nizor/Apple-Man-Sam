@@ -1,3 +1,4 @@
+
 class_name PowerUp extends Node
 
 @export var player: Player
@@ -8,6 +9,7 @@ signal speedboost
 signal damageboost
 signal healthboost
 
+
 func _ready() -> void:
 	$AudioStreamPlayer2D.play()
 	match type:
@@ -17,6 +19,7 @@ func _ready() -> void:
 			$Damage_Sprite.visible = true
 		PowerUpType.HEALTH:
 			$Health_Sprite.visible = true
+
 
 # Function to call when the powerup collides with the player
 func _on_area_2d_body_entered(body: Node2D) -> void:

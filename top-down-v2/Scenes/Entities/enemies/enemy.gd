@@ -34,6 +34,8 @@ func makepath() -> void:
 func Enemy():
 	pass
 	
+func Ememy3():
+	pass
 
 func _on_attack_cd_timeout() -> void:
 	can_attack = true

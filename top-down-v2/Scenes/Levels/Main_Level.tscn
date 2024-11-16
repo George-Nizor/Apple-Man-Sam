@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=4 uid="uid://2eg5dp1cygbn"]
+[gd_scene load_steps=20 format=4 uid="uid://2eg5dp1cygbn"]
 
 [ext_resource type="PackedScene" uid="uid://cn3b83r2ltbda" path="res://Scenes/Entities/Player/player.tscn" id="1_sg18i"]
+[ext_resource type="Shader" path="res://Scenes/Levels/test.gdshader" id="2_18eth"]
 [ext_resource type="Script" path="res://Scripts/Globals/main_camera.gd" id="2_piqvq"]
 [ext_resource type="PackedScene" uid="uid://bygnuq8o7d0mf" path="res://Scenes/Components/ui.tscn" id="3_0espr"]
 [ext_resource type="Script" path="res://Scenes/Levels/spawner_manager.gd" id="4_8gadg"]
@@ -13,6 +14,9 @@
 [ext_resource type="Script" path="res://Scenes/Levels/ground.gd" id="7_h6gmj"]
 [ext_resource type="AudioStream" uid="uid://wcwky31x2lc3" path="res://Assets/Sounds/Music/Game_Track.mp3" id="8_2dhog"]
 [ext_resource type="Script" path="res://Scenes/Levels/power_up_spawners.gd" id="11_7ci24"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o1nnt"]
+shader = ExtResource("2_18eth")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5oj54"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -42,37 +46,13 @@ position = Vector2(493, 356)
 collision_mask = 27
 
 [node name="Main_Camera" type="Camera2D" parent="Player" node_paths=PackedStringArray("player")]
+material = SubResource("ShaderMaterial_o1nnt")
 zoom = Vector2(5, 5)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 script = ExtResource("2_piqvq")
 player = NodePath("..")
-
-[node name="UI" parent="Player/Main_Camera" instance=ExtResource("3_0espr")]
-scale = Vector2(2, 2)
-transform = Transform2D(2, 0, 0, 2, 0, 0)
-
-[node name="PauseMenu" parent="Player/Main_Camera/UI" instance=ExtResource("4_atk2i")]
-offset_left = 423.5
-offset_top = 214.5
-offset_right = 423.5
-offset_bottom = 214.5
-metadata/_edit_use_anchors_ = true
-
-[node name="Game_Over" type="RichTextLabel" parent="Player/Main_Camera/UI"]
-visible = false
-self_modulate = Color(7.567, 7.027, 14.054, 1)
-offset_left = 262.333
-offset_top = 89.0
-offset_right = 1311.33
-offset_bottom = 291.0
-theme_override_colors/font_outline_color = Color(0.437093, 0.000367141, 0.503814, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("5_31i4j")
-theme_override_font_sizes/normal_font_size = 100
-text = "GAME OVER 
-   CUNT"
 
 [node name="Enemy" parent="." instance=ExtResource("6_6lwrx")]
 position = Vector2(635, 371)
@@ -170,6 +150,33 @@ position = Vector2(1411, 142)
 
 [node name="Power_Up_timer" type="Timer" parent="Power_Up_Spawners"]
 wait_time = 15.0
+
+[node name="UI" parent="." instance=ExtResource("3_0espr")]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("4_atk2i")]
+offset_left = 423.5
+offset_top = 214.5
+offset_right = 423.5
+offset_bottom = 214.5
+metadata/_edit_use_anchors_ = true
+
+[node name="Game_Over" type="RichTextLabel" parent="UI"]
+visible = false
+self_modulate = Color(7.567, 7.027, 14.054, 1)
+offset_left = 325.5
+offset_top = 275.5
+offset_right = 1374.5
+offset_bottom = 477.5
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0.437093, 0.000367141, 0.503814, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("5_31i4j")
+theme_override_font_sizes/normal_font_size = 100
+text = "GAME OVER 
+   CUNT"
 
 [connection signal="timeout" from="Spawners/SpawnTimer" to="Spawners" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Power_Up_Spawners/Power_Up_timer" to="Power_Up_Spawners" method="_on_power_up_timer_timeout"]

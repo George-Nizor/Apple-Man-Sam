@@ -13,9 +13,9 @@ var current_damage = normal_damage
 func pick_up_power_up(new_power_up: PowerUp):
 	power_up = new_power_up  # Assign the new power-up
 	# Connect the signals for the new power-up
-	power_up.speedboost.connect(self.speed_boost)
-	power_up.damageboost.connect(self.damage_boost)
-	power_up.healthboost.connect(self.health_up)
+	power_up.speedboost.connect(speed_boost)
+	power_up.damageboost.connect(damage_boost)
+	power_up.healthboost.connect(health_up)
 
 func _ready() -> void:
 	health.kill_player.connect(kill_player)
@@ -52,13 +52,12 @@ func _physics_process(delta: float) -> void:
 	handle_animations()
 
 func kill_player(amount: int):
-	get_parent().get_node("Player/Main_Camera/UI/Game_Over").visible = true
+	get_parent().get_node("UI/Game_Over").visible = true
 	animated_sprite.rotation += amount
 	animated_sprite.scale.x = amount
-	set_physics_process(false)  # Ddisable physics processing
+	process_mode = PROCESS_MODE_DISABLED
 	$Death_Sound.play()
 	await get_tree().create_timer(3).timeout
-	get_tree().paused = false
 	if GlobalStuff.high_score < GlobalStuff.SCORE:
 		GlobalStuff.high_score = GlobalStuff.SCORE
 		GlobalStuff.save_data.high_score = GlobalStuff.high_score

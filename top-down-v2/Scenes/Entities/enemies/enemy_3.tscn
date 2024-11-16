@@ -106,7 +106,9 @@ attack_damage = 20
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_3cbh1")
-animation = &"run"
+animation = &"attack"
+frame = 2
+frame_progress = 0.830194
 
 [node name="enemy_health" type="Node2D" parent="."]
 script = ExtResource("3_i56g0")
@@ -118,6 +120,7 @@ body = NodePath("..")
 moveSpeed = 20.0
 
 [node name="Hitboxcomponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
 collision_layer = 2
 script = ExtResource("5_giliq")
 health_component = NodePath("../enemy_health")
