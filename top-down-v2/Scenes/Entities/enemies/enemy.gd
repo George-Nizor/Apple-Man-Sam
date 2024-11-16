@@ -10,9 +10,6 @@ extends CharacterBody2D
 @onready var making_path = true
 @onready var path_timer: Timer = $Path_Timer
 
-func handle_rotation():
-	var mouse = get_global_mouse_position()
-	$PlayerSprite.flip_h = mouse.x < position.x
 
 func _physics_process(delta: float) -> void:
 	makepath()
@@ -20,6 +17,10 @@ func _physics_process(delta: float) -> void:
 	movement.move_object(direction)
 	if !velocity.is_zero_approx():
 		animated_sprite.play("run")
+	if player.global_position.x < global_position.x:
+		animated_sprite.flip_h = true  # Flip sprite horizontally
+	else:
+		animated_sprite.flip_h = false  # Flip sprite horizontally
 	#handle_rotation()
 	#handle_animations()
 	

@@ -86,7 +86,7 @@ sprite_frames = SubResource("SpriteFrames_ee5b7")
 animation = &"run"
 autoplay = "idle"
 frame = 3
-frame_progress = 0.663996
+frame_progress = 0.650075
 
 [node name="enemy_health" type="Node2D" parent="."]
 script = ExtResource("2_7gp3u")

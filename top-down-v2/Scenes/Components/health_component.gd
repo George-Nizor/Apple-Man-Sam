@@ -26,12 +26,10 @@ func damage(attack: Attack):
 		# Instantiate the particle effect
 		var hit_effect_instance = hit_effect.instantiate()
 		get_parent().get_parent().add_child(hit_effect_instance)
-		hit_effect_instance.global_position = get_parent().global_position  # Set its position
-		# Add the particle effect to the scene tree
-		print(get_parent().global_position,hit_effect_instance.global_position)
+		hit_effect_instance.global_position = get_parent().global_position 
 		get_parent().queue_free()
 	elif health <= 0 and get_parent().has_method('Player'):
-		kill_player.emit(3) # in case of emergency
+		kill_player.emit(3)
 
 
 func increase(amount):

@@ -1,0 +1,156 @@
+[gd_scene load_steps=20 format=3 uid="uid://b3ucg3y474mgd"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy.gd" id="1_s3fk8"]
+[ext_resource type="Texture2D" uid="uid://cruma07eto1ht" path="res://Assets/Sprites/PUMPKIN MAN KENT - ATTACK-Sheet.png" id="2_tjdx1"]
+[ext_resource type="Texture2D" uid="uid://cpkw7qr3xa5bu" path="res://Assets/Sprites/PUMPKIN MAN KENT-Sheet.png" id="3_4fwm6"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_i56g0"]
+[ext_resource type="Script" path="res://Scenes/Components/movement_component.gd" id="4_fqrj7"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_giliq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4tj3"]
+atlas = ExtResource("2_tjdx1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy56w"]
+atlas = ExtResource("2_tjdx1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yic66"]
+atlas = ExtResource("2_tjdx1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_by3l8"]
+atlas = ExtResource("2_tjdx1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2sqm"]
+atlas = ExtResource("2_tjdx1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq8fb"]
+atlas = ExtResource("3_4fwm6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijf0b"]
+atlas = ExtResource("3_4fwm6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqyyd"]
+atlas = ExtResource("3_4fwm6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drros"]
+atlas = ExtResource("3_4fwm6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cbh1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4tj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy56w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yic66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_by3l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2sqm")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oq8fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijf0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqyyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drros")
+}],
+"loop": true,
+"name": &"run",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_adpqs"]
+radius = 34.0
+height = 68.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ra7l"]
+size = Vector2(49, 52.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0himi"]
+radius = 37.0
+
+[node name="Enemy" type="CharacterBody2D"]
+y_sort_enabled = true
+position = Vector2(2, -16)
+collision_layer = 2
+collision_mask = 7
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_s3fk8")
+attack_damage = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_3cbh1")
+animation = &"run"
+
+[node name="enemy_health" type="Node2D" parent="."]
+script = ExtResource("3_i56g0")
+max_health = 500
+
+[node name="enemy_movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4_fqrj7")
+body = NodePath("..")
+moveSpeed = 20.0
+
+[node name="Hitboxcomponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+script = ExtResource("5_giliq")
+health_component = NodePath("../enemy_health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxcomponent"]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_adpqs")
+
+[node name="Body_Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, -11)
+shape = SubResource("RectangleShape2D_1ra7l")
+
+[node name="damage_modulate" type="CanvasModulate" parent="."]
+
+[node name="attack_cd" type="Timer" parent="."]
+
+[node name="attack_box" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_box"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_0himi")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+
+[node name="Path_Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
+[connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]
+[connection signal="timeout" from="Path_Timer" to="." method="_on_path_timer_timeout"]
