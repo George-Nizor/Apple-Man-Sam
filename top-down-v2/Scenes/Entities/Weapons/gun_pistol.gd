@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 func shoot():
 	if canshoot and mode == Modes.NORMAL:
 		$AnimatedSprite2D.play("fire")
+		$fire_sound.pitch_scale = randf_range(0.8,1.6)
 		$fire_sound.play()
 		var new_parent = get_tree().get_root().get_node("Test_Level").get_node("TileMap")
 		var bullet = bullet.instantiate()

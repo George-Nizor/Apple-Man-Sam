@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://b3ucg3y474mgd"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy.gd" id="1_s3fk8"]
+[ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy_3.gd" id="1_cictt"]
 [ext_resource type="Texture2D" uid="uid://cruma07eto1ht" path="res://Assets/Sprites/PUMPKIN MAN KENT - ATTACK-Sheet.png" id="2_tjdx1"]
 [ext_resource type="Texture2D" uid="uid://cpkw7qr3xa5bu" path="res://Assets/Sprites/PUMPKIN MAN KENT-Sheet.png" id="3_4fwm6"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_i56g0"]
@@ -84,8 +84,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_adpqs"]
-radius = 34.0
-height = 68.0
+radius = 44.0
+height = 88.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ra7l"]
 size = Vector2(49, 52.5)
@@ -96,19 +96,19 @@ radius = 37.0
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 position = Vector2(2, -16)
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 7
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_s3fk8")
-attack_damage = 20
+script = ExtResource("1_cictt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_3cbh1")
 animation = &"attack"
-frame = 2
-frame_progress = 0.830194
+frame = 3
+frame_progress = 0.353773
 
 [node name="enemy_health" type="Node2D" parent="."]
 script = ExtResource("3_i56g0")
@@ -120,7 +120,6 @@ body = NodePath("..")
 moveSpeed = 20.0
 
 [node name="Hitboxcomponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-visible = false
 collision_layer = 2
 script = ExtResource("5_giliq")
 health_component = NodePath("../enemy_health")
@@ -137,6 +136,7 @@ shape = SubResource("RectangleShape2D_1ra7l")
 [node name="damage_modulate" type="CanvasModulate" parent="."]
 
 [node name="attack_cd" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="attack_box" type="Area2D" parent="."]
 visible = false
@@ -156,4 +156,5 @@ wait_time = 0.1
 
 [connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
 [connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]
+[connection signal="area_exited" from="attack_box" to="." method="_on_attack_box_area_exited"]
 [connection signal="timeout" from="Path_Timer" to="." method="_on_path_timer_timeout"]

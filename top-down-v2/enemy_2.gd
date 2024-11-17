@@ -3,8 +3,8 @@ extends CharacterBody2D
 @onready var player: Player = get_parent().get_child(0)
 @onready var dash_timer: Timer = $dash_timer  # Timer to control dash intervals
 var dashing = false  # Tracks if the enemy is currently dashing
-var dash_speed = 250  # Speed of the dash
-var dash_duration = 0.3  # Duration of each dash in seconds
+var dash_speed = 100  # Speed of the dash
+var dash_duration = 0.5  # Duration of each dash in seconds
 @onready var original_rotation = rotation
 @onready var enemy_2_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_cd: Timer = $attack_cd

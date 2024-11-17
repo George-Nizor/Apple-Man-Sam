@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://2eg5dp1cygbn"]
+[gd_scene load_steps=18 format=4 uid="uid://2eg5dp1cygbn"]
 
 [ext_resource type="PackedScene" uid="uid://cn3b83r2ltbda" path="res://Scenes/Entities/Player/player.tscn" id="1_sg18i"]
 [ext_resource type="Shader" path="res://Scenes/Levels/test.gdshader" id="2_18eth"]
@@ -8,8 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://c2glth78667qi" path="res://Scenes/Menus/pause_menu.tscn" id="4_atk2i"]
 [ext_resource type="FontFile" uid="uid://bo05ovc6ssadm" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="5_31i4j"]
 [ext_resource type="Texture2D" uid="uid://b2sqrgnab4yt0" path="res://Assets/Tile_Files/tile_set.png" id="5_cvyco"]
-[ext_resource type="PackedScene" uid="uid://b3ucg3y474mgd" path="res://Scenes/Entities/enemies/enemy_3.tscn" id="6_6lwrx"]
-[ext_resource type="PackedScene" uid="uid://suv7ientnyjb" path="res://Scenes/Entities/enemy_2.tscn" id="6_7v6ae"]
 [ext_resource type="TileSet" uid="uid://dlhws7gyhdx5j" path="res://Assets/Tilesets/main_tileset.tres" id="6_tlhqx"]
 [ext_resource type="Script" path="res://Scenes/Levels/ground.gd" id="7_h6gmj"]
 [ext_resource type="AudioStream" uid="uid://wcwky31x2lc3" path="res://Assets/Sounds/Music/Game_Track.mp3" id="8_2dhog"]
@@ -53,13 +51,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 script = ExtResource("2_piqvq")
 player = NodePath("..")
-
-[node name="Enemy" parent="." instance=ExtResource("6_6lwrx")]
-position = Vector2(635, 371)
-scale = Vector2(1.5, 1.5)
-
-[node name="Enemy_2" parent="." instance=ExtResource("6_7v6ae")]
-position = Vector2(728, 362)
 
 [node name="Spawners" type="Node" parent="."]
 script = ExtResource("4_8gadg")

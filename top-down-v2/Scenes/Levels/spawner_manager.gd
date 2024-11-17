@@ -3,6 +3,7 @@ extends Node
 @onready var spawners : Array
 @onready var enemy = preload("res://Scenes/Entities/enemies/enemy.tscn")
 @onready var enemy2 = preload("res://Scenes/Entities/enemy_2.tscn")
+@onready var enemy3 = preload("res://Scenes/Entities/enemies/enemy_3.tscn")
 @onready var can_spawn: bool = true
 @onready var spawn_timer: Timer = $SpawnTimer
 var broc_counter: int = 0
@@ -12,9 +13,12 @@ func _ready() -> void:
 	pass
 	
 func select_enemy():
-	if broc_counter > 3:
-		broc_counter = 0
+	if broc_counter == 3:
+		broc_counter += 1
 		return enemy2
+	if broc_counter > 5:
+		broc_counter = 0
+		return enemy3
 	else:
 		broc_counter += 1
 		return enemy
