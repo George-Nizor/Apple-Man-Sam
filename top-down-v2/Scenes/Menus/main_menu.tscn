@@ -175,11 +175,17 @@ theme_override_fonts/font = ExtResource("2_hhyo1")
 theme_override_font_sizes/font_size = 61
 text = "Play"
 
-[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Volume" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_hhyo1")
 theme_override_font_sizes/font_size = 61
-text = "Options"
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="Vol_Slider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+rounded = true
 
 [node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 0.08, 0.08, 1)
@@ -221,5 +227,5 @@ position = Vector2(12, -5)
 gizmo_extents = 0.0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Vol_Slider" to="." method="_on_vol_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

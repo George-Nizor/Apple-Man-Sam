@@ -26,8 +26,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true  # Flip sprite horizontally
 	else:
 		animated_sprite.flip_h = false  # Flip sprite horizontally
-	#handle_rotation()
-	#handle_animations()
+	
 	
 func makepath() -> void:
 	if making_path:

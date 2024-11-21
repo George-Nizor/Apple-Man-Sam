@@ -165,11 +165,17 @@ theme_override_fonts/font = ExtResource("3_cqw7r")
 theme_override_font_sizes/font_size = 30
 text = "Resume"
 
-[node name="Options" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Volume" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_cqw7r")
-theme_override_font_sizes/font_size = 20
-text = "Options"
+theme_override_font_sizes/font_size = 30
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="Vol_Slider" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+rounded = true
 
 [node name="Main Menu" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -189,6 +195,6 @@ libraries = {
 }
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/Vol_Slider" to="." method="_on_vol_slider_value_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
