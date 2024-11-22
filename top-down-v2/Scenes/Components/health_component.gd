@@ -2,41 +2,34 @@ class_name Healthcomponent extends Node2D
 
 @onready var hit_effect = preload("res://Scenes/Entities/enemy_hit_particle.tscn")
 @export var max_health = 100
-var health: float 
+var health: float
+var entity: Node2D
+var effects_player_instance: effects_player
 signal took_damage(intensity: float, duration: float)
 signal kill_player(amount: int)
 signal update_health
 
 func _ready() -> void:
 	health = max_health
+	entity = get_parent()
+	# Safely attempt to retrieve the effects_player node
+	if entity.has_node("effects_player"):
+		effects_player_instance = entity.get_node("effects_player")
+	else:
+		print("Error: 'effects_player' node not found in entity", entity)
 
 func damage(attack: Attack):
 	health -= attack.damage
-	get_parent().get_node("AnimatedSprite2D").modulate = Color('0015ff')
-	await get_tree().create_timer(0.1).timeout  # Optional delay to reset color
-	get_parent().get_node("AnimatedSprite2D").modulate = Color.WHITE
-	
-	# Handle camera shake and ui health
-	if get_parent().has_method('Player'):
+	effects_player_instance.play_hit_effect()
+	if entity.has_method('Player'):
 		took_damage.emit(5,0.5)
 		update_health.emit()
-	
-	# Handle enemy Score
-	if health <= 0 and get_parent().has_method('Enemy'):
-		if get_parent().has_method('Enemy2'):
-			GlobalStuff.SCORE += 2 # if enemy is a carrot man, add 2 to the score, so the total becomes 3 points per kill
-		if get_parent().has_method('Enemy3'):
-			GlobalStuff.SCORE += 4
-		GlobalStuff.SCORE += 1
-	
-	# Handle Enemy die effect
-		# Instantiate the particle effect
-		var hit_effect_instance = hit_effect.instantiate()
-		get_parent().get_parent().add_child(hit_effect_instance)
-		hit_effect_instance.global_position = get_parent().global_position 
-		get_parent().queue_free()
-	elif health <= 0 and get_parent().has_method('Player'):
-		kill_player.emit(3)
+		if health <= 0:
+			kill_player.emit(3)
+	elif health <= 0 and !entity.has_method('Player'):
+		ScoreManager.on_entity_death(entity)
+		effects_player_instance.play_death_effect()
+		entity.queue_free()
 
 
 func increase(amount):

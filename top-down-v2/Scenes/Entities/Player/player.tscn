@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cn3b83r2ltbda"]
+[gd_scene load_steps=24 format=3 uid="uid://cn3b83r2ltbda"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_2cgkm"]
 [ext_resource type="Texture2D" uid="uid://bqkppm2kqcr3v" path="res://Assets/Sprites/test.png" id="2_awnru"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bgpqsj85iwmah" path="res://Assets/Sounds/Effects/Hit_2.wav" id="8_3l1bt"]
 [ext_resource type="AudioStream" uid="uid://dndkgqpm3jj3t" path="res://Assets/Sounds/Effects/Hit_3.wav" id="9_s7sor"]
 [ext_resource type="AudioStream" uid="uid://c4kj74j1j0kty" path="res://Assets/Sounds/Effects/speed boost sound.wav" id="10_5nrqs"]
+[ext_resource type="Script" path="res://Scenes/Components/hit_effect_player.gd" id="11_yxhp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ae6a"]
 atlas = ExtResource("2_awnru")
@@ -145,3 +146,7 @@ volume_db = -35.58
 [node name="Speed_Boost" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_5nrqs")
 volume_db = -25.0
+
+[node name="effects_player" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("11_yxhp7")
+entity = NodePath("..")

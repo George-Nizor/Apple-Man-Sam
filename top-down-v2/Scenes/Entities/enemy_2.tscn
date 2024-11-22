@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://suv7ientnyjb"]
+[gd_scene load_steps=15 format=3 uid="uid://suv7ientnyjb"]
 
 [ext_resource type="Script" path="res://enemy_2.gd" id="1_qgcl3"]
 [ext_resource type="Texture2D" uid="uid://d4ay3tehch2yf" path="res://Assets/Sprites/Carrot Man Barry.png" id="2_d1u3y"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_d7j75"]
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_hf3xm"]
+[ext_resource type="Script" path="res://Scenes/Components/hit_effect_player.gd" id="5_wsam3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ashuy"]
 atlas = ExtResource("2_d1u3y")
@@ -101,6 +102,10 @@ position = Vector2(0.333333, 1)
 shape = SubResource("RectangleShape2D_bruql")
 
 [node name="attack_cd" type="Timer" parent="."]
+
+[node name="effects_player" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("5_wsam3")
+entity = NodePath("..")
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_duration_timer" to="." method="_on_dash_timer_timeout"]

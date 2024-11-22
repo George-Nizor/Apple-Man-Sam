@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dtewtuqtu8jrn"]
+[gd_scene load_steps=17 format=3 uid="uid://dtewtuqtu8jrn"]
 
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="1_q5tg6"]
 [ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy.gd" id="1_rokff"]
 [ext_resource type="Texture2D" uid="uid://by4kgy217o42h" path="res://Assets/Sprites/brocco.png" id="1_vps2r"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="2_7gp3u"]
 [ext_resource type="Script" path="res://Scenes/Components/movement_component.gd" id="4_1otu2"]
+[ext_resource type="Script" path="res://Scenes/Components/hit_effect_player.gd" id="6_gkbvu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qg2bm"]
 atlas = ExtResource("1_vps2r")
@@ -127,6 +128,10 @@ radius = 25.0
 
 [node name="Path_Timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="effects_player" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("6_gkbvu")
+entity = NodePath("..")
 
 [connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
 [connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]

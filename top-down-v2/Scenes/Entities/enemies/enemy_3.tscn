@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3ucg3y474mgd"]
+[gd_scene load_steps=21 format=3 uid="uid://b3ucg3y474mgd"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/enemies/enemy_3.gd" id="1_cictt"]
 [ext_resource type="Texture2D" uid="uid://cruma07eto1ht" path="res://Assets/Sprites/PUMPKIN MAN KENT - ATTACK-Sheet.png" id="2_tjdx1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_i56g0"]
 [ext_resource type="Script" path="res://Scenes/Components/movement_component.gd" id="4_fqrj7"]
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_giliq"]
+[ext_resource type="Script" path="res://Scenes/Components/hit_effect_player.gd" id="7_25d5b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u4tj3"]
 atlas = ExtResource("2_tjdx1")
@@ -153,6 +154,10 @@ radius = 25.0
 
 [node name="Path_Timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="effects_player" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("7_25d5b")
+entity = NodePath("..")
 
 [connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
 [connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]

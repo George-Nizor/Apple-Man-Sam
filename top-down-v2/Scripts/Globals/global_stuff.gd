@@ -1,7 +1,5 @@
 extends Node
 
-signal update_health
-
 var ENEMY_COUNT = 0
 var SCORE = 0
 var WAVE_NUMBER = 0
@@ -14,7 +12,5 @@ var PLAYER_HEALTH = 100
 func _ready() -> void:
 	pass
 	
-	
-func _process(delta: float) -> void:
-	pass
+
 	
