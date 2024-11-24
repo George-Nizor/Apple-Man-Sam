@@ -12,7 +12,6 @@ var current_damage = normal_damage
 # Call this function when a power-up is picked up
 func pick_up_power_up(new_power_up: PowerUp):
 	power_up = new_power_up  # Assign the new power-up
-	# Connect the signals for the new power-up
 	power_up.speedboost.connect(speed_boost)
 	power_up.damageboost.connect(damage_boost)
 	power_up.healthboost.connect(health_up)
@@ -20,9 +19,6 @@ func pick_up_power_up(new_power_up: PowerUp):
 func _ready() -> void:
 	health.kill_player.connect(kill_player)
 	health.update_health.connect(send_health)
-	#power_up.speedboost.connect(speed_boost)
-	#power_up.damageboost.connect(damage_boost)
-	#power_up.healthboost.connect(health_up)
 
 
 func Player():

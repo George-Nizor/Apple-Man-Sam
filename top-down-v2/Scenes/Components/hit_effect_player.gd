@@ -6,7 +6,7 @@ class_name effects_player extends Node
 func play_hit_effect():
 	entity.get_node("AnimatedSprite2D").modulate = Color('0015ff')
 	await get_tree().create_timer(0.1).timeout  # Optional delay to reset color
-	get_parent().get_node("AnimatedSprite2D").modulate = Color.WHITE
+	entity.get_node("AnimatedSprite2D").modulate = Color.WHITE
 
 func play_death_effect():
 	var death_effect_instance = death_effect.instantiate()
