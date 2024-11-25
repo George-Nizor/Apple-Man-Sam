@@ -107,6 +107,15 @@ shape = SubResource("RectangleShape2D_bruql")
 script = ExtResource("5_wsam3")
 entity = NodePath("..")
 
+[node name="Health_Bar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 46.0
+offset_bottom = -16.0
+scale = Vector2(0.5, 0.5)
+show_percentage = false
+
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_duration_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]

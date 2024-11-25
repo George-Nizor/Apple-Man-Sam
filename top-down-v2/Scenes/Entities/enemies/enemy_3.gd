@@ -11,9 +11,15 @@ extends CharacterBody2D
 @onready var path_timer: Timer = $Path_Timer
 var is_attacking: bool = false
 var player_in_range_container: bool = false
+@onready var health_bar: ProgressBar = $Health_Bar
+@onready var health_node: Healthcomponent = $enemy_health
 
+func _ready() -> void:
+	health_bar.max_value = health_node.max_health
+	health_bar.value = health_node.health
 
 func _physics_process(delta: float) -> void:
+	health_bar.value = health_node.health
 	if is_attacking:
 		return
 	
@@ -26,6 +32,8 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true  # Flip sprite horizontally
 	else:
 		animated_sprite.flip_h = false  # Flip sprite horizontally
+	
+	
 	
 	
 func makepath() -> void:

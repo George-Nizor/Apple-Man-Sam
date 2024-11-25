@@ -9,6 +9,12 @@ extends CharacterBody2D
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var making_path = true
 @onready var path_timer: Timer = $Path_Timer
+@onready var health_bar: ProgressBar = $Health_Bar
+@onready var health_node: Healthcomponent = $enemy_health
+
+func _ready() -> void:
+	health_bar.max_value = health_node.max_health
+	health_bar.value = health_node.health
 
 
 func _physics_process(delta: float) -> void:
@@ -21,6 +27,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true  # Flip sprite horizontally
 	else:
 		animated_sprite.flip_h = false  # Flip sprite horizontally
+	health_bar.value = health_node.health
 	#handle_rotation()
 	#handle_animations()
 	
@@ -56,3 +63,4 @@ func _on_attack_box_area_entered(area: Area2D) -> void:
 func _on_path_timer_timeout() -> void:
 	making_path = true
 	
+

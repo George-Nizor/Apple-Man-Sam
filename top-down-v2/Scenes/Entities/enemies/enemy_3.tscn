@@ -159,6 +159,15 @@ wait_time = 0.1
 script = ExtResource("7_25d5b")
 entity = NodePath("..")
 
+[node name="Health_Bar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = -25.0
+offset_top = -41.0
+offset_right = 79.0
+offset_bottom = -37.0
+scale = Vector2(0.5, 0.5)
+show_percentage = false
+
 [connection signal="timeout" from="attack_cd" to="." method="_on_attack_cd_timeout"]
 [connection signal="area_entered" from="attack_box" to="." method="_on_attack_box_area_entered"]
 [connection signal="area_exited" from="attack_box" to="." method="_on_attack_box_area_exited"]

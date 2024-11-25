@@ -10,14 +10,20 @@ var dash_duration = 0.5  # Duration of each dash in seconds
 @onready var attack_cd: Timer = $attack_cd
 @onready var can_attack = true
 @export var attack_damage = 30
+@onready var health_bar: ProgressBar = $Health_Bar
+@onready var health_node: Healthcomponent = $enemy_2_health
 
 func _ready() -> void:
 	dash_timer.start() 
+	health_bar.max_value = health_node.max_health
+	health_bar.value = health_node.health
 
 func _physics_process(delta: float) -> void:
+	health_bar.value = health_node.health
 	if dashing:
 		# Move in the set direction while dashing is active
 		move_and_slide()
+	
 
 func dash_toward_player():
 	# Get direction to player, set velocity, and start dashing
