@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://2eg5dp1cygbn"]
+[gd_scene load_steps=21 format=4 uid="uid://2eg5dp1cygbn"]
 
 [ext_resource type="PackedScene" uid="uid://cn3b83r2ltbda" path="res://Scenes/Entities/Player/player.tscn" id="1_sg18i"]
 [ext_resource type="Shader" path="res://Scenes/Levels/test.gdshader" id="2_18eth"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/Levels/ground.gd" id="7_h6gmj"]
 [ext_resource type="AudioStream" uid="uid://wcwky31x2lc3" path="res://Assets/Sounds/Music/Game_Track.mp3" id="8_2dhog"]
 [ext_resource type="Script" path="res://Scenes/Levels/power_up_spawners.gd" id="11_7ci24"]
+[ext_resource type="Shader" path="res://Shaders/screen_effect.gdshader" id="13_85qca"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o1nnt"]
 shader = ExtResource("2_18eth")
@@ -35,6 +36,20 @@ sources/0 = SubResource("TileSetAtlasSource_uf4qs")
 background_mode = 3
 glow_enabled = true
 volumetric_fog_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6rqo"]
+shader = ExtResource("13_85qca")
+shader_parameter/crt_curve = 0.02
+shader_parameter/crt_scan_line_intensity = 0.417
+shader_parameter/brightness = 0.885
+shader_parameter/neon_tint = Vector3(0.7, 0, 1)
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.0
+shader_parameter/crt_line_distortion = 0.078
+
+[sub_resource type="QuadMesh" id="QuadMesh_yg3de"]
+size = Vector2(1280, 720)
+center_offset = Vector3(640, 360, 0)
 
 [node name="Test_Level" type="Node2D"]
 y_sort_enabled = true
@@ -168,6 +183,10 @@ theme_override_fonts/normal_font = ExtResource("5_31i4j")
 theme_override_font_sizes/normal_font_size = 100
 text = "GAME OVER 
    CUNT"
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="UI"]
+material = SubResource("ShaderMaterial_o6rqo")
+mesh = SubResource("QuadMesh_yg3de")
 
 [connection signal="timeout" from="Spawners/SpawnTimer" to="Spawners" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Power_Up_Spawners/Power_Up_timer" to="Power_Up_Spawners" method="_on_power_up_timer_timeout"]
