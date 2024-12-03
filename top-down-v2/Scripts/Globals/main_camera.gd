@@ -1,7 +1,7 @@
 extends Camera2D
 
-const Dead_Zone = 200
-const Max_Camera_Move = 100  # Maximum distance the camera can move from the center
+@export var Dead_Zone = 200
+@export var Max_Camera_Move = 100  # Maximum distance the camera can move from the center
 var shake_intensity = 5.0  # Max offset in pixels
 var shake_duration = 0.5  # Shake time in seconds
 var shake_timer = 0.0  # Timer to track shake duration
